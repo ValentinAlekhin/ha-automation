@@ -1,0 +1,12 @@
+version: '3.5'
+
+services:
+  client:
+    build:
+      context: .
+    image: valentinalekhin/ha-automation
+    container_name: client
+    environment:
+      - MQTT_URL=${MQTT_URL}
+      - MQTT_USERNAME=${MQTT_USERNAME}
+      - MQTT_PASSWORD=${MQTT_PASSWORD}
