@@ -1,19 +1,20 @@
-FROM node:16-alpine as builder
+FROM golang:1.18-alpine as builder
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY go.mod ./
+COPY go.sum ./
 
-RUN npm ci
+RUN go mod download
 
-COPY . .
+COPY *.go ./
 
-RUN npm run build
+RUN go build -o /ha-automation
 
-FROM node:16-alpine
+FROM alpine
 
-WORKDIR /app
+WORKDIR /
 
-COPY --from=builder /app/dist .
+COPY --from=builder /ha-automation /ha-automation
 
-CMD ["node", "index.js"]
+ENTRYPOINT ["/ha-automation"]

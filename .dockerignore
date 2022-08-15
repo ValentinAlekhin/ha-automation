@@ -1,5 +1,4 @@
-node_modules
-dist
 .env
 .gitignore
-.prettierrc.json
+*.exe
+vendor
